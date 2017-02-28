@@ -41,13 +41,14 @@ for i in range(1,20):
 	time_spent[i] = service_end[i] - arrival_time[i]
 	idle_time[i] = arrival_time[i] - service_end[i-1]
 
+idle_time = np.asarray(idle_time)
+idle_time[idle_time < 0] = 0
 
-print idle_time
 avg_wait = sum(waiting_time)/20.0
 
-print "Customer\tInter Arrival Time\tArrival Time\tService Time\tService Begins\tService Ends\tWait Time"
-for i in range(20):
-	print str(i+1)+"\t"+str(inter_arrival_time[i])+"\t"+str(arrival_time[i])+"\t"+str(service_time[i])+"\t"+str(service_begin[i])+"\t"+str(service_end[i])+"\t"+str(waiting_time[i])
+#print "Customer\tInter Arrival Time\tArrival Time\tService Time\tService Begins\tService Ends\tWait Time"
+#for i in range(20):
+#	print str(i+1)+"\t"+str(inter_arrival_time[i])+"\t"+str(arrival_time[i])+"\t"+str(service_time[i])+"\t"+str(service_begin[i])+"\t"+str(service_end[i])+"\t"+str(waiting_time[i])
 
 print 'Average waiting time : '+ str(avg_wait)
 print 'Total waiting time : ' + str(sum(waiting_time))
