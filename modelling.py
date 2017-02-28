@@ -25,7 +25,7 @@ service_end[:20] = [0] * 20
 time_spent[:20] = [0] * 20
 
 
-service_begin[0] = 0
+service_begin[0] = inter_arrival_time[0]
 service_end[0] = service_begin[0] + service_time[0]
 time_spent[0] = service_end[0] - arrival_time[0]
 idle_time[0] = 0
