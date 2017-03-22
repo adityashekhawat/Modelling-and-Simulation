@@ -1,23 +1,34 @@
 import numpy as np
+import time
 import random
-iterations=input("Enter the number of trials : ")
-print '\n'
-for k in range(5):
+n = input("Enter the value of n : ")
+customers=input("Enter the number of customers : ")
+time_duration,time_increment = (int(x) for x in raw_input("Enter the time duration & increment step(separate by space) : ").split(" "))
+print '\n\n'
+
+print 'S No.'+'\t'+'Iterations'+'\t'+'Duration'+'\t'+'AAWT'
+
+for k in range(n):
 	average_awt=0
-	#print 'Iteration Number \tAverage waiting time '
-	#print '----------------------------------------------'
-	for j in range(iterations):
+	iterations = 0
+
+	if(k>0):                  #_____ start to increment time after the first iteration _____#
+		time_duration += time_increment
+
+	t_end = time.time() + time_duration
+	while time.time() < t_end:         #_______ run the loop for specified seconds ____#
+		iterations += 1                #_______ count the iterations done in that time _____#
 		inter_arrival_time=[]
 		service_time=[]
 
-		for i in range(10000):
+
+		#_____ to generate the random numbers__________#
+		for i in range(customers):
 			inter_arrival_time.append(random.randint(1,8))
 			service_time.append(random.randint(1,6))
-		#print inter_arrival_time,service_time
-		inter_arrival_time[0]=0
 
-		#inter_arrival_time = [0,8,6,1,8,3,8,7,2,3,1,1,5,6,3,8,1,2,4,5]
-		#service_time = [4,1,4,3,2,4,5,4,5,3,3,5,4,1,5,4,3,3,2,3]
+		#print inter_arrival_time,service_time
+
 
 		arrival_time = np.cumsum(inter_arrival_time)		#find the cumulative sum
 
@@ -29,11 +40,11 @@ for k in range(5):
 
 		# initializing all arrays to 0
 
-		waiting_time[:20] = [0] * 20
-		idle_time[:20] = [0] * 20
-		service_begin[:20] = [0] * 20
-		service_end[:20] = [0] * 20
-		time_spent[:20] = [0] * 20
+		waiting_time[:customers] = [0] * customers
+		idle_time[:customers] = [0] * customers
+		service_begin[:customers] = [0] * customers
+		service_end[:customers] = [0] * customers
+		time_spent[:customers] = [0] * customers
 
 		# simulation for the first customer
 
@@ -44,7 +55,7 @@ for k in range(5):
 		waiting_time[0] = service_begin[0] - arrival_time[0]
 
 
-		for i in range(1,20):
+		for i in range(1,customers):
 			a=service_end[i-1]
 			b=arrival_time[i]
 			service_begin[i]=(max(a,b))
@@ -62,7 +73,7 @@ for k in range(5):
 		
 		print "\t"+str(sum(inter_arrival_time))+"\t"+str(sum(arrival_time))+"\t"+str(sum(service_time))+"\t"+str(sum(service_begin))+"\t"+str(sum(service_end))+"\t"+str(sum(waiting_time))+"\t"+str(sum(idle_time))
 		'''
-		avg_wait_time=sum(waiting_time)/20.0
+		avg_wait_time=sum(waiting_time)/float(customers)
 		average_awt = average_awt + avg_wait_time
 		#print  str(j)+"\t\t\t"+str(avg_wait_time)
 		#print 'Total waiting time :\t' + str(sum(waiting_time))
@@ -71,6 +82,6 @@ for k in range(5):
 		#print 'Total idle time :\t' + str(sum(idle_time))
 
 
-	print 'Average of Average Wait Time : '+str(average_awt/20)
+	print str(k)+'\t\t'+str(iterations)+'\t\t'+str(time_duration)+'\t\t'+"{0:.2f}".format(average_awt/iterations)
 	#print inter_arrival_time
 	#print service_time
