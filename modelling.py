@@ -22,7 +22,7 @@ for k in range(n):
 		service_time=[]
 
 
-		#_____ to generate the random numbers__________#
+		#_____ to generate the random numbers_________#
 		for i in range(customers):
 			inter_arrival_time.append(random.randint(1,8))
 			service_time.append(random.randint(1,6))
@@ -75,12 +75,7 @@ for k in range(n):
 		'''
 		avg_wait_time=sum(waiting_time)/float(customers)
 		average_awt = average_awt + avg_wait_time
-		#print  str(j)+"\t\t\t"+str(avg_wait_time)
-		#print 'Total waiting time :\t' + str(sum(waiting_time))
-		#print 'Average service time :\t' + str(sum(service_time)/20.0)
-		#print 'Average time spent :\t' + str(sum(time_spent)/20.0)
-		#print 'Total idle time :\t' + str(sum(idle_time))
-
+		
 
 	print str(k)+'\t\t'+str(iterations)+'\t\t'+str(time_duration)+'\t\t'+"{0:.2f}".format(average_awt/iterations)
 	#print inter_arrival_time
